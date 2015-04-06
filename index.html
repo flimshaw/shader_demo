@@ -35,12 +35,13 @@
 		
 		void main() {
 			
-			vec4 tex = texture2D(tDiffuse, vUv);
+			vec4 tex = texture2D(tDiffuse, vec2(vUv.x + (uTime * .001), vUv.y));
+			vec4 newTex = texture2D(tDiffuse, vec2(vUv.x + (tex.r * .1), vUv.y + tex.r * .2));
 
-		    gl_FragColor = vec4(tex.rgb, .07);
+		    gl_FragColor = vec4(newTex.rgb, 1.);
 		}
 
-	  </script>    
+	  </script>
 
 	<script type="text/javascript" src="js/three.70.min.js"></script>
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>

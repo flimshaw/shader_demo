@@ -10,11 +10,11 @@ $(document).ready(function() {
 	document.body.appendChild( container );	 		
 
 	// this is a static perlin noise texture for initial seeding
-	APP.noiseTex = THREE.ImageUtils.loadTexture("textures/seamless-perlin-noise.jpg", THREE.UVMapping, function() {
+	APP.noiseTex = THREE.ImageUtils.loadTexture("textures/rgb-perlin-seamless-512.png", THREE.UVMapping, function() {
 		APP.ready = true;
 	});
 	APP.noiseTex.wrapS = APP.noiseTex.wrapT = THREE.RepeatWrapping;
-	
+
 	scene = new THREE.Scene();	
 
 	renderer = new THREE.WebGLRenderer({
@@ -61,6 +61,7 @@ $(document).ready(function() {
 		APP.time++;
 
 		APP.cloudShader.uniforms['uTime'].value = APP.time;
+		
 		renderer.render( scene, camera ); 
 
 		requestAnimationFrame(animate);
