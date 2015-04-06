@@ -13,7 +13,8 @@ $(document).ready(function() {
 	APP.noiseTex = THREE.ImageUtils.loadTexture("textures/seamless-perlin-noise.jpg", THREE.UVMapping, function() {
 		APP.ready = true;
 	});
-
+	APP.noiseTex.wrapS = APP.noiseTex.wrapT = THREE.RepeatWrapping;
+	
 	scene = new THREE.Scene();	
 
 	renderer = new THREE.WebGLRenderer({
