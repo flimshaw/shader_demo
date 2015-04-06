@@ -51,7 +51,7 @@ $(document).ready(function() {
 		fragmentShader: document.getElementById( 'fragmentShader' ).textContent
 	} );
 
-	APP.plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3), APP.cloudShader);
+	APP.plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(8, 8), APP.cloudShader);
 	scene.add(APP.plane);
 
 	animate();

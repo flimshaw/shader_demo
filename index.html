@@ -36,9 +36,14 @@
 		void main() {
 			
 			vec4 tex = texture2D(tDiffuse, vec2(vUv.x + (uTime * .001), vUv.y));
-			vec4 newTex = texture2D(tDiffuse, vec2(vUv.x + (tex.r * .1), vUv.y + tex.r * .2));
+			vec4 newTex = texture2D(tDiffuse, vec2(vUv.x + (tex.r * .1) - (uTime * .00025), vUv.y  - (uTime * .00025) + tex.b * .15));
 
-		    gl_FragColor = vec4(newTex.rgb, 1.);
+			vec4 c = vec4(.08, .65, .72, 1. );
+			vec4 finTex;
+			
+			finTex = newTex.r * c * 1.5;			
+
+		    gl_FragColor = vec4(finTex.rgb, 1.);
 		}
 
 	  </script>
