@@ -9,6 +9,39 @@
 		}
 	</style>
 
+	  <script type="x-shader/x-vertex" id="vertexShader">
+
+		uniform float uTime;
+		uniform sampler2D tDiffuse;
+		varying vec2 vUv;
+
+		void main() {
+	        
+			vUv = uv;
+
+			vec4 tex = texture2D(tDiffuse, uv);
+
+	        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+
+		}
+
+	  </script>
+
+	  <script type="x-shader/x-fragment" id="fragmentShader">
+
+		uniform float uTime;
+		uniform sampler2D tDiffuse;
+		varying vec2 vUv;
+		
+		void main() {
+			
+			vec4 tex = texture2D(tDiffuse, vUv);
+
+		    gl_FragColor = vec4(tex.rgb, .07);
+		}
+
+	  </script>    
+
 	<script type="text/javascript" src="js/three.70.min.js"></script>
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>

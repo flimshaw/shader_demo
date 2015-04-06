@@ -1,5 +1,5 @@
 var APP = {} || APP;
-
+APP.time = 0;
 $(document).ready(function() {
 
 	// variables related to the rendering context
@@ -10,7 +10,7 @@ $(document).ready(function() {
 	document.body.appendChild( container );	 		
 
 	// this is a static perlin noise texture for initial seeding
-	APP.noiseTex = THREE.ImageUtils.loadTexture("textures/cubes-pile-cb.jpg", THREE.UVMapping, function() {
+	APP.noiseTex = THREE.ImageUtils.loadTexture("textures/seamless-perlin-noise.jpg", THREE.UVMapping, function() {
 		APP.ready = true;
 	});
 
@@ -39,13 +39,27 @@ $(document).ready(function() {
 									
 	scene.add(wrapper);
 
-	APP.cube = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3), new THREE.MeshBasicMaterial({ color: 0xff6600 }));
-	scene.add(APP.cube);
+	// this is the shader material we'll use for our simulation, it will
+	// be rendered alternately to the front or back render targets
+	APP.cloudShader = new THREE.ShaderMaterial( {
+		uniforms: {
+			"uTime": { type: "f", value: 0.0 },
+			"tDiffuse": { type: "t", value: APP.noiseTex }
+		},
+		vertexShader: document.getElementById( 'vertexShader' ).textContent,
+		fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+	} );
+
+	APP.plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3), APP.cloudShader);
+	scene.add(APP.plane);
 
 	animate();
 
 	function animate() {
 
+		APP.time++;
+
+		APP.cloudShader.uniforms['uTime'].value = APP.time;
 		renderer.render( scene, camera ); 
 
 		requestAnimationFrame(animate);
